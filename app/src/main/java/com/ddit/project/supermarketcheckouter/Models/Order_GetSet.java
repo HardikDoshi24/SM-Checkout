@@ -1,30 +1,38 @@
 package com.ddit.project.supermarketcheckouter.Models;
 
+import com.ddit.project.supermarketcheckouter.Product;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order_GetSet {
 
-    String order_id;
-    String payment_refid;
-    String user_id;
-    String user_name;
-    String productlist;
-    String total_amount;
-    String ondate;
-    String payment_status;
-    String admin_approve;
+    private String order_id;
+    private String payment_refid;
+    private String user_id;
+    private String user_name;
+    private String productlist;
+    private String total_amount;
+    private String ondate;
+    private String payment_status;
+    private String admin_approve;
 
     public Order_GetSet() {
     }
 
-    public Order_GetSet(String id, String rid, String u_id, String u_name, String list, String amount, String date, String p_status, String approve){
-        order_id = id;
-        payment_refid = rid;
-        user_id = u_id;
-        user_name = u_name;
-        productlist = list;
-        total_amount = amount;
-        ondate = date;
-        payment_status =  p_status;
-        admin_approve = approve;
+    public Order_GetSet(String order_id, String payment_refid, String user_id, String user_name,
+                        String productlist, String total_amount, String ondate,
+                        String payment_status, String admin_approve) {
+        this.order_id = order_id;
+        this.payment_refid = payment_refid;
+        this.user_id = user_id;
+        this.user_name = user_name;
+        this.productlist = productlist;
+        this.total_amount = total_amount;
+        this.ondate = ondate;
+        this.payment_status = payment_status;
+        this.admin_approve = admin_approve;
     }
 
     public String getOrder_id() {
@@ -97,5 +105,34 @@ public class Order_GetSet {
 
     public void setAdmin_approve(String admin_approve) {
         this.admin_approve = admin_approve;
+    }
+
+    // Method to retrieve product names from JSON product list
+    public List<String> getProductNames() {
+        List<String> productNames = new ArrayList<>();
+        try {
+            Gson gson = new Gson();
+            Product[] products = gson.fromJson(productlist, Product[].class);
+            for (Product product : products) {
+                productNames.add(product.getName());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return productNames;
+    }
+
+    // Method to retrieve product quantity from JSON product list
+    public String getProductQuantity() {
+        try {
+            Gson gson = new Gson();
+            Product[] products = gson.fromJson(productlist, Product[].class);
+            if (products != null && products.length > 0) {
+                return products[0].getProduct_items(); // Assuming there's only one product in the list
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

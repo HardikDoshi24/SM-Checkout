@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ddit.project.supermarketcheckouter.Models.Order_GetSet;
+import com.ddit.project.supermarketcheckouter.Product;
 import com.ddit.project.supermarketcheckouter.R;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 public class OrderAdminAdapter extends RecyclerView.Adapter<OrderAdminAdapter.ViewHolder> {
@@ -64,6 +66,8 @@ public class OrderAdminAdapter extends RecyclerView.Adapter<OrderAdminAdapter.Vi
         TextView amount;
         TextView order_id;
         TextView username_tv;
+        TextView product_name_tv;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -74,6 +78,7 @@ public class OrderAdminAdapter extends RecyclerView.Adapter<OrderAdminAdapter.Vi
             amount = itemView.findViewById(R.id.amount);
             order_id = itemView.findViewById(R.id.order_id);
             username_tv = itemView.findViewById(R.id.username_tv);
+            product_name_tv = itemView.findViewById(R.id.product_name_tv);
             itemView.setOnClickListener(this);
         }
 
@@ -88,6 +93,28 @@ public class OrderAdminAdapter extends RecyclerView.Adapter<OrderAdminAdapter.Vi
                 order_status.setTextColor(mContext.getResources().getColor(R.color.colorSuccess));
             } else {
                 order_status.setTextColor(mContext.getResources().getColor(R.color.colorError));
+            }
+            // Parse product list JSON and extract product names and quantities
+            StringBuilder productDetailsBuilder = new StringBuilder();
+            try {
+                Gson gson = new Gson();
+                Product[] products = gson.fromJson(item.getProductlist(), Product[].class);
+                for (Product product : products) {
+                    if (productDetailsBuilder.length() > 0) {
+                        productDetailsBuilder.append(", ");
+                    }
+                    productDetailsBuilder.append(product.getName()).append(" (Quantity: ").append(product.getProduct_items()).append(")");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Set product names and quantities
+            String productDetails = productDetailsBuilder.toString();
+            if (!productDetails.isEmpty()) {
+                product_name_tv.setText("Products: " + productDetails);
+            } else {
+                product_name_tv.setText("Product Names Not Available");
             }
         }
 
