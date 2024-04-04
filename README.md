@@ -1,6 +1,6 @@
 # Supermarket Checkout Android App
 
-Welcome to Supermarket Checkout, an Android app designed to streamline the shopping experience for both users and administrators. This app allows users to effortlessly scan products, manage their cart, securely make payments, and view order history. Administrators can efficiently monitor user activity, manage products and categories, and generate reports.
+Welcome to Supermarket Checkout, an Android app designed to streamline the shopping experience for both users and administrators. This app revolutionizes the shopping process, allowing users to effortlessly scan products, manage their cart, securely make payments, and view order history. By eliminating the need for long queues, Supermarket Checkout saves customers' time, making the checkout process faster than ever. Administrators can efficiently monitor user activity, manage products and categories, and generate reports.
 
 ## Technologies Used:
 - Java
