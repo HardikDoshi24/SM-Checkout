@@ -47,6 +47,8 @@ Welcome to Supermarket Checkout, an Android app designed to streamline the shopp
 ## Screenshots and Demo:
 For a visual demonstration, refer to the demo video provided for both user and admin sides.
 
+## Project Report:
+You can access the detailed project report [here](link_to_your_project_report)
 
 ## License:
 This project is licensed under the [MIT License](LICENSE).
